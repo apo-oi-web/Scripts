@@ -11,11 +11,12 @@ Outputs the winner of the election (first to get 50%+1)
 '''
 
 # Updated 11/5/2019 by Daniel McDonough (added comments and edge cases)
+# Updated 2/9/2020 by Daniel McDonough (Checked for empty ballots)
 
 
 import math
 import pandas as pd
-
+import math
 
 
 
@@ -35,6 +36,10 @@ def readCSV(filename):
     VotingMatrix = df1.drop(1)  # matrix of ranks
 
     # print(VotingMatrix)
+    if VotingMatrix.isnull().values.any():
+        print("\nThere seem to be some null values! This may happen if a vote was not fully casted! \nMake sure to double check the results just in case! Removing null values...")
+        VotingMatrix= VotingMatrix.dropna(axis=0, how='any', thresh=None, subset=None, inplace=False)
+
     names = names.T.reset_index(drop=True).T  # clean index labels
     keys = names.T.reset_index(drop=True)  # clean index labels
     keys.drop(keys.tail(1).index, inplace=True)
@@ -47,6 +52,7 @@ def deleteAbstain(data):
     print("\n\nRemoving Abstention Votes (if any)")
 
     # Convert data to ints
+
     data = data.astype(str).astype(int)
 
     # Remove Votes with Abstain with rank 1
@@ -95,7 +101,7 @@ def countVotes(data, names, tied_candidates=None, rank=1):
             if rank in votes:
                 counts[i] = votes[rank]
     else:
-        print(names.values)
+        # print(names.values)
         numcandidates = names.size  # subtract 1 cause we don't account Abstain as a candidate
         counts = [0]*numcandidates  # init empty array to keep track of # 1 Counts
 
@@ -108,12 +114,18 @@ def countVotes(data, names, tied_candidates=None, rank=1):
             if rank in votes:
                 counts[i] = votes[rank]
 
+    # Print current ocunt of the votes
     print("Number of "+str(rank)+" choice votes are as follows per candidate:")
-    print(counts)
+
+    VotesPerCandidate = dict(zip(names.values, counts))
+    for k,v in VotesPerCandidate.items():
+        print(k+":", v)
+    print("\n")
 
     # check if votes are over 50%+1 if checking 1st rank
     if rank == 1:
         checkNumVotes(Votes_needed,counts,names)
+
 
 
     min_val = min(counts)  # get the count with the lowest 1st pick vote
@@ -121,8 +133,6 @@ def countVotes(data, names, tied_candidates=None, rank=1):
 
     # check if there is a tie for last place
     if counts.count(min_val) > 1:
-
-        # TOdo check max rank depth
         if rank == numcandidates:
             print("No more ranks to check...")
             if numcandidates == len(names.values):
@@ -195,7 +205,7 @@ def IncreaseRanks(df):
 #  the rankings
 
 
-TESTCASES = ['TestCase_All_Abstain.csv', 'TestCase_Last_Place_Tie.csv','TestCase_Absolute_Tie.csv', 'TestCase_Threeway.csv', 'TestCase_Absolute_LastPlace_Tie.csv']
+TESTCASES = ['TestCase_All_Abstain.csv', 'TestCase_Last_Place_Tie.csv','TestCase_Absolute_Tie.csv', 'TestCase_Threeway.csv', 'TestCase_Absolute_LastPlace_Tie.csv', 'TestCase_NullValues.csv']
 
 '''
 Test Cases Explanations:
@@ -219,18 +229,19 @@ Test Cases Explanations:
     Case TestCase_Absolute_LastPlace_Tie.csv:
         Last Place Tie: Votes between 2 last place candidates are tied for all ranks
         Expected Outcome: Both last place candidates are removed at the same time, Durtle the Turtle wins
-
+    
+    Case TestCase_NullValues.csv:
+        Last Place Tie: All Null Value Votes are removed
+        Expected Outcome: Both last place candidates are removed at the same time, Durtle the Turtle wins
 
 '''
-
-
-
 
 def main():
     # read the data
     filename = 'Data.csv'
 
-    data, keys = readCSV(TESTCASES[3])
+    data, keys = readCSV(filename)
+
     # run the voting code
     countVotes(data, keys)
 
