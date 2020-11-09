@@ -62,10 +62,7 @@ def deleteAbstain(data):
     # calculate the number of non-abstain votes
     VotesCasted = data.shape[0]  # Get number of total non-abstain votes casted
 
-    if (VotesCasted % 2) == 0:
-        Votes_Needed = (VotesCasted / 2) + 1  # Number of votes needed to win
-    else:
-        Votes_Needed = math.ceil(VotesCasted / 2)  # Number of votes needed to win
+    Votes_Needed = math.floor(VotesCasted / 2) + 1  # Number of votes needed to win
 
     print(str(Votes_Needed) + " (50% + 1) Non Abstention Votes are needed to win\n\n")
 
@@ -243,7 +240,7 @@ Test Cases Explanations:
 
 def main():
     # read the data
-    filename = 'Data_Fail2.csv'
+    filename = 'Data_Fail1.csv'
 
     data, keys = readCSV(filename)
 
