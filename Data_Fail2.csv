@@ -1,0 +1,12 @@
+StartDate,EndDate,Status,IPAddress,Progress,Duration (in seconds),Finished,RecordedDate,ResponseId,RecipientLastName,RecipientFirstName,RecipientEmail,ExternalReference,LocationLatitude,LocationLongitude,DistributionChannel,UserLanguage,Q1_1,Q1_2,Q1_3,Q1_4,Q1_5
+Start Date,End Date,Response Type,IP Address,Progress,Duration (in seconds),Finished,Recorded Date,Response ID,Recipient Last Name,Recipient First Name,Recipient Email,External Data Reference,Location Latitude,Location Longitude,Distribution Channel,User Language,Qualtrics hates me? - Always,Qualtrics hates me? - Yes,Qualtrics hates me? - Help Me,Qualtrics hates me? - No Confidence,Qualtrics hates me? - Abstain
+"{""ImportId"":""startDate"",""timeZone"":""America/Denver""}","{""ImportId"":""endDate"",""timeZone"":""America/Denver""}","{""ImportId"":""status""}","{""ImportId"":""ipAddress""}","{""ImportId"":""progress""}","{""ImportId"":""duration""}","{""ImportId"":""finished""}","{""ImportId"":""recordedDate"",""timeZone"":""America/Denver""}","{""ImportId"":""_recordId""}","{""ImportId"":""recipientLastName""}","{""ImportId"":""recipientFirstName""}","{""ImportId"":""recipientEmail""}","{""ImportId"":""externalDataReference""}","{""ImportId"":""locationLatitude""}","{""ImportId"":""locationLongitude""}","{""ImportId"":""distributionChannel""}","{""ImportId"":""userLanguage""}","{""ImportId"":""QID1_1""}","{""ImportId"":""QID1_2""}","{""ImportId"":""QID1_3""}","{""ImportId"":""QID1_4""}","{""ImportId"":""QID1_5""}"
+11/8/2020 16:14,11/8/2020 16:14,0,75.133.2.249,100,7,1,11/8/2020 16:14,R_1C1ocXsS7Gvc0ph,,,prroche@wpi.edu,,42.27049255,-71.84470367,email,EN,,,,,
+11/8/2020 16:14,11/8/2020 16:15,0,130.215.219.76,100,58,1,11/8/2020 16:15,R_2zcEFwjub67Z3kS,,,bdgoldstein@wpi.edu,,42.28210449,-71.82620239,email,EN,1,4,2,5,3
+11/8/2020 16:14,11/8/2020 16:15,0,75.136.89.198,100,74,1,11/8/2020 16:15,R_3OejHvARPn7H876,,,mastlouis@wpi.edu,,42.29170227,-71.78579712,email,EN,3,4,1,5,2
+11/8/2020 16:14,11/8/2020 16:15,0,66.189.31.62,100,78,1,11/8/2020 16:15,R_aVtOsTMpdBxR8UV,,,spleonard@wpi.edu,,42.48649597,-72.00119781,email,EN,4,5,2,3,1
+11/8/2020 16:17,11/8/2020 16:17,0,75.136.89.198,100,5,1,11/8/2020 16:17,R_10BrVXFsQnW9EEc,,,hposkanzer@wpi.edu,,42.29170227,-71.78579712,email,EN,1,2,3,5,4
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,"numbers above are the rank. 1 is more desired, 5 is least.",,,,

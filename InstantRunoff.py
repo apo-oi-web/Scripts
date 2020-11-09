@@ -12,9 +12,9 @@ Outputs the winner of the election (first to get 50%+1)
 
 # Updated 11/5/2019 by Daniel McDonough (added comments and edge cases)
 # Updated 2/9/2020 by Daniel McDonough (Checked for empty ballots)
+# Updated 11/8/2020 by Daniel McDonough (Added Abstain remove check and 50%+2 error)
 
 
-import math
 import pandas as pd
 import math
 
@@ -37,7 +37,7 @@ def readCSV(filename):
 
     # print(VotingMatrix)
     if VotingMatrix.isnull().values.any():
-        print("\nThere seem to be some null values! This may happen if a vote was not fully casted! \nMake sure to double check the results just in case! Removing null values...")
+        print("\nThere seem to be some null values! This may happen if a vote was not fully casted! \nMake sure to double check the results just in case! \nRemoving null values...")
         VotingMatrix= VotingMatrix.dropna(axis=0, how='any', thresh=None, subset=None, inplace=False)
 
     names = names.T.reset_index(drop=True).T  # clean index labels
@@ -56,11 +56,16 @@ def deleteAbstain(data):
     data = data.astype(str).astype(int)
 
     # Remove Votes with Abstain with rank 1
-    data = data[data['Abstain'] > 1]
+    if 'Abstain' in data:
+        data = data[data['Abstain'] > 1]
 
     # calculate the number of non-abstain votes
     VotesCasted = data.shape[0]  # Get number of total non-abstain votes casted
-    Votes_Needed = math.ceil(VotesCasted/2 + 1)  # Number of votes needed to win
+
+    if (VotesCasted % 2) == 0:
+        Votes_Needed = (VotesCasted / 2) + 1  # Number of votes needed to win
+    else:
+        Votes_Needed = math.ceil(VotesCasted / 2)  # Number of votes needed to win
 
     print(str(Votes_Needed) + " (50% + 1) Non Abstention Votes are needed to win\n\n")
 
@@ -238,7 +243,7 @@ Test Cases Explanations:
 
 def main():
     # read the data
-    filename = 'Data.csv'
+    filename = 'Data_Fail2.csv'
 
     data, keys = readCSV(filename)
 
